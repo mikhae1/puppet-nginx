@@ -1,0 +1,14 @@
+{
+  "name": "mmekhanov-nginx",
+  "version": "0.1.0",
+  "author": "mmekhanov",
+  "summary": null,
+  "license": "Apache 2.0",
+  "source": "https://github.com/minkolazer/puppet-nginx",
+  "project_page": "https://github.com/minkolazer/puppet-nginx",
+  "issues_url": "https://github.com/minkolazer/puppet-nginx/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
