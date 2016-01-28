@@ -15,26 +15,26 @@ server {
     access_log /var/log/nginx/noodoo.access.log timed;
     error_log /var/log/nginx/noodoo.error.log debug;
 
-    error_page 404 /404.html;
-    error_page 403 /403.html;
-    error_page 500 /500.html;
-    error_page 503 /maintenance.html;
+    #error_page 404 /404.html;
+    #error_page 403 /403.html;
+    #error_page 500 /500.html;
+    #error_page 503 /maintenance.html;
 
     location =/maintenance.html {
-        root <%= @www_root_path %>/current/public;
+        root <%= @www_root_path %>/public;
     }
 
     location ~ ^/(.*).html {
-        root <%= @www_root_path %>/current/public;
+        root <%= @www_root_path %>/public;
     }
 
     location =/check {
-        root <%= @www_root_path %>/current/public;
+        root <%= @www_root_path %>/public;
         index index.html;
     }
 
     location / {
-        if (-f <%= @www_root_path %>/current/public/maintenance.html) {
+        if (-f <%= @www_root_path %>/public/maintenance.html) {
             return 503;
         }
 
@@ -52,17 +52,17 @@ server {
         if (-f <%= @www_root_path %>/maintenance.html) {
             return 503;
         }
-        root <%= @www_root_path %>/current/public;
+        root <%= @www_root_path %>/public;
         index index.html;
     }
 
     location ~ ^/([^/]+)/(images|css|fonts|documents|uploads)/(.*) {
-        alias <%= @www_root_path %>/current/organizers/$1/public/$2/$3;
+        alias <%= @www_root_path %>/organizers/$1/public/$2/$3;
     }
 
 
     location ~ ^/(images/|css/|fonts/|noodoo.js){
-        root <%= @www_root_path %>/current/public;
+        root <%= @www_root_path %>/public;
     }
 
     location /nginx_stats {
