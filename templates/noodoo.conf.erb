@@ -2,10 +2,6 @@ upstream noodoo {
     server 127.0.0.1:3000;
 }
 
-log_format timed '$remote_addr - $remote_user [$time_local] '
-                 '"$request" $status $body_bytes_sent $request_time '
-                 '"$http_referer" "$http_user_agent"';
-
 server {
     listen      80;
     server_name <%= @fqdn %>;
@@ -60,15 +56,14 @@ server {
         alias <%= @www_root_path %>/organizers/$1/public/$2/$3;
     }
 
-
     location ~ ^/(images/|css/|fonts/|noodoo.js){
         root <%= @www_root_path %>/public;
     }
 
-    location /nginx_stats {
-        stub_status on;
-        access_log off;
-        allow 127.0.0.1;
-        deny all;
-    }
+    #location /nginx_stats {
+    #    stub_status on;
+    #    access_log off;
+    #    allow 127.0.0.1;
+    #    deny all;
+    #}
 }
