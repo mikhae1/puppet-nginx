@@ -8,9 +8,9 @@ class nginx::config inherits nginx {
 
   file { '/var/log/nginx/':
     ensure  => directory,
-    owner   => 0,
-    group   => 0,
-    mode    => '0775',
+    #owner   => 0,
+    #group   => 0,
+    mode    => '0755',
   }
 
   file { '/etc/nginx/conf.d/noodoo.conf':
@@ -21,5 +21,15 @@ class nginx::config inherits nginx {
     mode    => 0644,
     content => template("$module_name/noodoo.conf.erb"),
     require => File['/etc/nginx/conf.d/'],
+  }
+
+  exec {'firewall-add-80-tcp':
+    command => "/usr/bin/firewall-cmd --permanent --add-port=80/tcp",
+    #require => Package["sphinx"],
+  }
+
+  exec {'firewall-reload':
+    command => '/usr/bin/firewall-cmd --reload',
+    require => Exec['firewall-add-80-tcp'],
   }
 }
